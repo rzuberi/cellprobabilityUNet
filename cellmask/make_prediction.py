@@ -12,7 +12,6 @@ def split_image_into_crops(image,crop_size):
     
     #first pad the image by 100px
     image = np.pad(image,((100,100),(100,100)),'constant')
-    print(image.shape)
 
     crops = []
     for i in range(0,image.shape[0],crop_size):
