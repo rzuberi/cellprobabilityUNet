@@ -22,11 +22,40 @@ def get_cellpose_probability_maps(images):
 
     return cellprobs
 
+def get_cellpose_probability_masks(images):
+    # make a prediction on the data with cellpose
+    model = models.Cellpose(gpu=core.use_gpu(), model_type='nuclei')
+    masks, flows, styles, diams = model.eval(images)
+
+    return masks
+
 if __name__ == '__main__':
-    images = import_images_from_path('data/',num_imgs=3,normalisation=True)
-    cellprobs = get_cellpose_probability_maps(images)#
-    for i in range(len(cellprobs)):
-        plt.subplot(1,3,i+1)
-        plt.imshow(cellprobs[i])
-    plt.show()
-    print(cellprobs.shape)
+    images = import_images_from_path('cellmask\data\\',num_imgs=3,normalisation=True)
+    #for i in range(3):
+    #    plt.imshow(images[i])
+    #    plt.axis('off')
+    #    name = 'image' + str(i)
+    #    plt.savefig(name,dpi=2400)
+    #    plt.show()
+
+    #cellprobs = get_cellpose_probability_maps(images)
+    #for i in range(3):
+    #    plt.imshow(cellprobs[i])
+    #    plt.axis('off')
+    #    name = 'cellprob' + str(i)
+    #    plt.savefig(name,dpi=2400)
+    #    plt.show()
+    
+    cellmasks = get_cellpose_probability_masks(images)
+    for i in range(3):
+        plt.imshow(cellmasks[i])
+        plt.axis('off')
+        name = 'cellmask' + str(i)
+        plt.savefig(name,dpi=2400)
+        plt.show()
+
+        #for i in range(len(cellprobs)):
+    #    plt.subplot(1,3,i+1)
+    #    plt.imshow(cellprobs[i])
+    #plt.show()
+    #print(cellprobs.shape)

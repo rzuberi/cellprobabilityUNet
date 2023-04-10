@@ -88,4 +88,4 @@ class UNet(Module):
         encFeatures = self.encoder(x)
         decFeatures = self.decoder(encFeatures[::-1][0], encFeatures[::-1][1:])
         map = self.head(decFeatures)
-        return map
+        return encFeatures, map
